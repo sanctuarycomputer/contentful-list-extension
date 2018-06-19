@@ -53,7 +53,7 @@ class App extends Component {
 
     return items.map((item, i) => (
       <li key={i}>
-        <span>{item}</span>
+        <span>{item} </span>
         <button onClick={() => this.removeItem(i)}>x</button>
       </li>
     ));
