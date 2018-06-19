@@ -2,5 +2,5 @@
   "id": "sc-list-extension",
   "name": "Sanctuary List Extension",
   "srcdoc": "./index.html",
-  "fieldTypes": ["Symbol", "Text"]
+  "fieldTypes": ["Text"]
 }
