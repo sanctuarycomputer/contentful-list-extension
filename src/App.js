@@ -7,7 +7,8 @@ class App extends Component {
     super(props);
     this.state = {
       api: {},
-      value: ""
+      items: [],
+      newItem: ""
     };
   }
 
@@ -21,33 +22,63 @@ class App extends Component {
     });
   }
 
-  handleClickUpdate = e => {
-    const { api, value } = this.state;
-    api.field.setValue(value);
+  addNewItem = () => {
+    const { items, newItem } = this.state;
+    items.push(newItem);
+
+    this.setState({ items, newItem: "" }, this.updateContentful);
   };
 
-  handleChangeValue = e => {
-    this.setState({
-      value: e.target.value
-    });
+  updateNewItem = e => {
+    this.setState({ newItem: e.target.value });
   };
+
+  removeItem = item => {
+    const { items } = this.state;
+    items.splice(item, 1);
+
+    this.setState({ items }, this.updateContentful);
+  };
+
+  updateContentful = () => {
+    const { api, items } = this.state;
+    api.field.setValue(items.join(","));
+  };
+
+  renderList() {
+    const { items } = this.state;
+    if (!items.length) return null;
+
+    return items.map((item, i) => (
+      <li key={i}>
+        <span>{item} </span>
+        <button
+          className="update-button cf-btn-secondary"
+          onClick={() => this.removeItem(i)}
+        >
+          remove
+        </button>
+      </li>
+    ));
+  }
 
   render() {
-    const { value } = this.state;
+    const { newItem } = this.state;
 
     return (
       <div className="App">
+        {this.renderList()}
         <input
           className="cf-form-input"
           type="text"
-          value={value}
-          onChange={this.handleChangeValue}
+          value={newItem}
+          onChange={this.updateNewItem}
         />
         <button
           className="update-button cf-btn-primary"
-          onClick={this.handleClickUpdate}
+          onClick={this.addNewItem}
         >
-          Update
+          Add
         </button>
       </div>
     );
