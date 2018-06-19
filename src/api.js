@@ -3,7 +3,7 @@ let api = null;
 const init =
   process.env.NODE_ENV === "development"
     ? callback => {
-        const mockContenful = {
+        const stubApi = {
           window: {
             startAutoResizer: () => {
               console.log("api:startAutoResizer");
@@ -19,8 +19,8 @@ const init =
             }
           }
         };
-        api = mockContenful;
-        callback(mockContenful);
+        api = stubApi;
+        callback(stubApi);
       }
     : callback => {
         var cfExt = window.contentfulExtension || window.contentfulWidget;
@@ -30,6 +30,6 @@ const init =
         });
       };
 
-export const contentful = (callback) => {
+export function initApi(callback) {
   init(callback);
 }
