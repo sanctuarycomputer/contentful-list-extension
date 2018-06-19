@@ -42,7 +42,19 @@ class App extends Component {
 
   updateContentful = () => {
     const { api, items } = this.state;
+    console.log(items.join(","), api.field);
     api.field.setValue(items.join(","));
+  };
+
+  handleClickUpdate = e => {
+    const { api, value } = this.state;
+    api.field.setValue(value);
+  };
+
+  handleChangeValue = e => {
+    this.setState({
+      value: e.target.value
+    });
   };
 
   renderList() {
